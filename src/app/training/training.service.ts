@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 export class TrainingService {
   exerciseChanged = new Subject<Exercise>();
   private availableExercises: Exercise[] = [
+    { id: 'test', name: 'testing', duration: 2, calories: 3 },
     { id: 'crunches', name: 'Crunches', duration: 30, calories: 8 },
     { id: 'touch-toes', name: 'Touch Toes', duration: 180, calories: 15 },
     { id: 'side-lunges', name: 'Side Lunges', duration: 120, calories: 18 },
@@ -47,11 +48,18 @@ export class TrainingService {
     this.exercises.push({
       ...this.runningExercise,
       duration: this.runningExercise.duration * (progess / 100),
-      calories: this.runningExercise.duration * (progess / 100),
+      calories: this.runningExercise.calories * (progess / 100),
       date: new Date(),
       state: 'cancelled'
     });
     this.runningExercise = null;
     this.exerciseChanged.next(null);
+  }
+
+  /**
+   * returns data for past table component
+   */
+  getCompletedOrCancelledExercises() {
+    return this.exercises.slice();
   }
 }

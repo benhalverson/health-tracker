@@ -1,11 +1,13 @@
-<mat-form-field>
-  <input
-    matInput
-    type="text"
-    (keyup)="applyFilters($event.target.value)"
-    placeholder="filter"
-  />
-</mat-form-field>
+<div fxLayoutAlign="center center">
+  <mat-form-field fxFlex="20%">
+    <input
+      matInput
+      type="text"
+      (keyup)="applyFilters($event.target.value)"
+      placeholder="filter"
+    />
+  </mat-form-field>
+</div>
 <mat-table [dataSource]="dataSource" matSort>
   <!-- Position Column -->
   <ng-container matColumnDef="date">

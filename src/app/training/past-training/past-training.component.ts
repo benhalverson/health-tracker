@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Exercise } from '../exercise.model';
 import { TrainingService } from '../training.service';
 import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-past-training',
@@ -15,6 +16,7 @@ export class PastTrainingComponent implements OnInit, AfterViewInit {
   constructor(private trainingService: TrainingService) {}
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   applyFilters(fitlerValue: string) {
     this.dataSource.filter = fitlerValue.trim().toLowerCase();
@@ -25,5 +27,8 @@ export class PastTrainingComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
+
+    // Pagination is not showing up dont know why :-(
+    this.dataSource.paginator = this.paginator;
   }
 }

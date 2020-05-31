@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "health-tracker",
+      "public": "dist/health-tracker",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

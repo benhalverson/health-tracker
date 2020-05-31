@@ -1,26 +1,52 @@
-import { Exercise } from './exercise.model';
 import { Subject } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Injectable } from '@angular/core';
+import 'rxjs/add/operator/map';
+import { Exercise } from './exercise.model';
+
+@Injectable({
+  providedIn: 'root'
+})
 export class TrainingService {
   exerciseChanged = new Subject<Exercise>();
-  private availableExercises: Exercise[] = [
-    { id: 'test', name: 'testing', duration: 2, calories: 3 },
-    { id: 'crunches', name: 'Crunches', duration: 30, calories: 8 },
-    { id: 'touch-toes', name: 'Touch Toes', duration: 180, calories: 15 },
-    { id: 'side-lunges', name: 'Side Lunges', duration: 120, calories: 18 },
-    { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 }
-  ];
-
+  exercisesChanged = new Subject<Exercise[]>();
+  private availableExercises: Exercise[] = [];
   private runningExercise: Exercise;
   private exercises: Exercise[] = [];
 
-  getAvilableExercises() {
-    return this.availableExercises.slice();
+  constructor(private afs: AngularFirestore) {}
+
+  /**
+   * Fetches the data from the firestore database.
+   */
+  fetchAvilableExercises() {
+    this.afs
+      .collection('availableExercises')
+      .snapshotChanges()
+      .map(docArray => {
+        return docArray.map(doc => {
+          return {
+            id: doc.payload.doc.id,
+            name: doc.payload.doc.data()['name'],
+            duration: doc.payload.doc.data()['duration'],
+            calories: doc.payload.doc.data()['calories']
+          };
+        });
+      })
+      .subscribe((exercises: Exercise[]) => {
+        this.availableExercises = exercises;
+        this.exercisesChanged.next([...this.availableExercises]);
+      });
   }
 
   getRunningExercises() {
     return { ...this.runningExercise };
   }
 
+  /**
+   * Starts the timer based on the selected exercise.
+   * @param selectedId The selected exerciseId from the dropdown menu
+   */
   startExercise(selectedId: string) {
     this.runningExercise = this.availableExercises.find(
       ex => ex.id === selectedId
@@ -29,10 +55,10 @@ export class TrainingService {
   }
 
   /**
-   * successfully completed the excerise.
+   * successfully completed the excerise and saves data to firestore with date and state.
    */
   completeExercise() {
-    this.exercises.push({
+    this.addDataToDatabase({
       ...this.runningExercise,
       date: new Date(),
       state: 'completed'
@@ -42,10 +68,10 @@ export class TrainingService {
   }
 
   /**
-   * stopped the excersie early.
+   * stopped the excersie early with state, date and precent completed.
    */
   cancelExercise(progess: number) {
-    this.exercises.push({
+    this.addDataToDatabase({
       ...this.runningExercise,
       duration: this.runningExercise.duration * (progess / 100),
       calories: this.runningExercise.calories * (progess / 100),
@@ -61,5 +87,20 @@ export class TrainingService {
    */
   getCompletedOrCancelledExercises() {
     return this.exercises.slice();
+  }
+
+  /**
+   * add data to firestore db
+   */
+  private addDataToDatabase(exercise: Exercise) {
+    this.afs
+      .collection('finishedExercises')
+      .add(exercise)
+      .then(ex => {
+        console.log(ex);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 }

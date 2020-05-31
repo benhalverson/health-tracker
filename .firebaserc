@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "health-tracker-b77f9": {
+      "hosting": {
+        "health-tracker": [
+          "health-tracker-b77f9"
+        ]
+      }
+    }
+  }
+}

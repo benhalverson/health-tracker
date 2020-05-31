@@ -10,9 +10,9 @@ import { Exercise } from './exercise.model';
 export class TrainingService {
   exerciseChanged = new Subject<Exercise>();
   exercisesChanged = new Subject<Exercise[]>();
+  finishedExercisesChanged = new Subject<Exercise[]>();
   private availableExercises: Exercise[] = [];
   private runningExercise: Exercise;
-  private exercises: Exercise[] = [];
 
   constructor(private afs: AngularFirestore) {}
 
@@ -85,8 +85,13 @@ export class TrainingService {
   /**
    * returns data for past table component
    */
-  getCompletedOrCancelledExercises() {
-    return this.exercises.slice();
+  fetchGetCompletedOrCancelledExercises() {
+    this.afs
+      .collection('finishedExercises')
+      .valueChanges()
+      .subscribe((exercises: Exercise[]) => {
+        this.finishedExercisesChanged.next(exercises);
+      });
   }
 
   /**

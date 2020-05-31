@@ -96,9 +96,6 @@ export class TrainingService {
     this.afs
       .collection('finishedExercises')
       .add(exercise)
-      .then(ex => {
-        console.log(ex);
-      })
       .catch(error => {
         console.error(error);
       });

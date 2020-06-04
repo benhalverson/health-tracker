@@ -13,10 +13,17 @@ import { Exercise } from '../exercise.model';
 export class NewTrainingComponent implements OnInit, OnDestroy {
   exercises: Exercise[];
   exerciseSubscription: Subscription;
+
   constructor(private trainingService: TrainingService) {}
+
+  /**
+   * Starts the exercise after the user selects an exercise.
+   * @param form selected exercise from dropdown menu
+   */
   onStartTraining(form: NgForm): void {
     this.trainingService.startExercise(form.value.exercise);
   }
+
   ngOnInit() {
     this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe(
       exercises => (this.exercises = exercises)

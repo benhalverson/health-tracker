@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthData } from './auth-data.model';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { TrainingService } from '../training/training.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +11,25 @@ export class AuthService {
   private isAuthenticated = false;
   authChange = new Subject<boolean>();
 
-  constructor(private router: Router, private afAuth: AngularFireAuth) {}
+  constructor(
+    private router: Router,
+    private afAuth: AngularFireAuth,
+    private trainingService: TrainingService
+  ) {}
+
+  initAuthListener() {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.authSuccessfully();
+      } else {
+        this.logout();
+        this.trainingService.cancelSubscriptions();
+        this.authChange.next(false);
+        this.authSuccessfully();
+        this.isAuthenticated = false;
+      }
+    });
+  }
   /**
    * Registers a new user with an email and password.
    * @param authData an object with email and password
@@ -46,9 +65,6 @@ export class AuthService {
    */
   logout() {
     this.afAuth.auth.signOut();
-    this.authChange.next(false);
-    this.authSuccessfully();
-    this.isAuthenticated = false;
   }
 
   /**

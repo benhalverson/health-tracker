@@ -60,7 +60,7 @@ export class AuthService {
       .signInWithEmailAndPassword(authData.email, authData.password)
       .then(() => {
         this.uiService.loadingStateChanged.next(false);
-        // this.authSuccessfully();
+        this.authSuccessfully();
       })
       .catch((error: Error) => {
         this.uiService.loadingStateChanged.next(false);

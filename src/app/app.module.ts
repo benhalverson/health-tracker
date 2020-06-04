@@ -24,6 +24,7 @@ import { AuthService } from './auth/auth.service';
 import { TrainingService } from './training/training.service';
 import { environment } from '../environments/environment';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { UIService } from './shared/ui.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,13 @@ import { AngularFireAuth } from '@angular/fire/auth';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule
   ],
-  providers: [AuthService, TrainingService, AngularFirestore, AngularFireAuth],
+  providers: [
+    AuthService,
+    TrainingService,
+    AngularFirestore,
+    AngularFireAuth,
+    UIService
+  ],
   bootstrap: [AppComponent],
   entryComponents: [StopTrainingComponent]
 })

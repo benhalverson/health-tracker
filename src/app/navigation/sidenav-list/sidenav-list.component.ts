@@ -18,10 +18,16 @@ export class SidenavListComponent implements OnInit, OnDestroy {
   isAuth = false;
   authSubscription: Subscription;
   constructor(private authService: AuthService) {}
+  /**
+   * Closes the sidenav when the user clicks a link.
+   */
   onClose(): void {
     this.closeSidenav.emit();
   }
 
+  /**
+   * Logs the user out of the app.
+   */
   onLogout(): void {
     this.onClose();
     this.authService.logout();

@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthData } from './auth-data.model';
 import { AngularFireAuth } from '@angular/fire/auth';
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
-  authChange = new Subject<boolean>();
   private isAuthenticated = false;
+  authChange = new Subject<boolean>();
 
   constructor(private router: Router, private afAuth: AngularFireAuth) {}
   /**
@@ -31,7 +33,7 @@ export class AuthService {
   login(authData: AuthData) {
     this.afAuth.auth
       .signInWithEmailAndPassword(authData.email, authData.password)
-      .then(result => {
+      .then(() => {
         this.authSuccessfully();
       })
       .catch(error => {
@@ -39,6 +41,9 @@ export class AuthService {
       });
   }
 
+  /**
+   * Method to logout a user
+   */
   logout() {
     this.afAuth.auth.signOut();
     this.authChange.next(false);
@@ -46,8 +51,10 @@ export class AuthService {
     this.isAuthenticated = false;
   }
 
-  isAuth() {
-    console.log(this.isAuthenticated);
+  /**
+   * A check to see if the user is authenticated.
+   */
+  isAuth(): boolean {
     return this.isAuthenticated;
   }
   private authSuccessfully() {

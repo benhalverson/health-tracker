@@ -38,8 +38,7 @@ export class AuthService {
    */
   registerUser(authData: AuthData) {
     this.uiService.loadingStateChanged.next(true);
-    this.afAuth.auth
-      .createUserWithEmailAndPassword(authData.email, authData.password)
+   this.afAuth.createUserWithEmailAndPassword(authData.email, authData.password)
       .then(() => {
         this.uiService.loadingStateChanged.next(false);
         this.authSuccessfully();
@@ -56,8 +55,7 @@ export class AuthService {
    */
   login(authData: AuthData) {
     this.uiService.loadingStateChanged.next(true);
-    this.afAuth.auth
-      .signInWithEmailAndPassword(authData.email, authData.password)
+    this.afAuth.signInWithEmailAndPassword(authData.email, authData.password)
       .then(() => {
         this.uiService.loadingStateChanged.next(false);
         this.authSuccessfully();
@@ -66,13 +64,14 @@ export class AuthService {
         this.uiService.loadingStateChanged.next(false);
         this.uiService.showSnackbar(error.message, null, 3000);
       });
+
   }
 
   /**
    * Method to logout a user
    */
   logout() {
-    this.afAuth.auth.signOut();
+     this.afAuth.signOut();
   }
 
   /**

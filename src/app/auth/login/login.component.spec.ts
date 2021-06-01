@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import 'zone.js/dist/zone-testing';
+import 'zone.js/testing';
 import { LoginComponent } from './login.component';
 import { AuthService } from '../auth.service';
 import { AngularFireDatabaseModule } from '@angular/fire/database';

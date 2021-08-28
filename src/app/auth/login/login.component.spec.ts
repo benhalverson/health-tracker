@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import 'zone.js/testing';
 import { LoginComponent } from './login.component';
 import { AuthService } from '../auth.service';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 class MockAuthService extends AuthService {}
@@ -14,17 +14,19 @@ describe('LoginComponent', () => {
   let angularFireAuth: AngularFireAuth;
   let router: Router;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule.withRoutes([]),
-        AuthService,
-        AngularFireDatabaseModule,
-        AngularFireAuth
-      ],
-      declarations: [LoginComponent]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          RouterTestingModule.withRoutes([]),
+          AuthService,
+          AngularFireDatabaseModule,
+          AngularFireAuth,
+        ],
+        declarations: [LoginComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);

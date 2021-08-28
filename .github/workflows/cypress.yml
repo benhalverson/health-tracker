@@ -8,7 +8,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Cypress tests
-         uses: cypress-io/github-action@v2.9.7
-         with:
+        uses: cypress-io/github-action@v2.9.7
+        with:
           build: npm run cypress:run
           start: npm start

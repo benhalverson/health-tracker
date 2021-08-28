@@ -1,6 +1,6 @@
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Mock } from 'protractor/built/driverProviders';
 // import { TestBed, ComponentFixture } from '@angular/core/testing';
 

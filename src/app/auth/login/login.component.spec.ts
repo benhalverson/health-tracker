@@ -14,17 +14,19 @@ describe('LoginComponent', () => {
   let angularFireAuth: AngularFireAuth;
   let router: Router;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule.withRoutes([]),
-        AuthService,
-        AngularFireDatabaseModule,
-        AngularFireAuth
-      ],
-      declarations: [LoginComponent]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          RouterTestingModule.withRoutes([]),
+          AuthService,
+          AngularFireDatabaseModule,
+          AngularFireAuth,
+        ],
+        declarations: [LoginComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);

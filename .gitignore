@@ -47,3 +47,5 @@ Thumbs.db
 
 src/environments/environment.ts
 .angular
+cypress/videos/
+cypress/screenshots/

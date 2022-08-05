@@ -17,7 +17,7 @@ export class SidenavListComponent implements OnInit, OnDestroy {
   @Output() closeSidenav = new EventEmitter<void>();
   isAuth = false;
   authSubscription: Subscription;
-  constructor(private authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
   /**
    * Closes the sidenav when the user clicks a link.
    */
@@ -32,11 +32,13 @@ export class SidenavListComponent implements OnInit, OnDestroy {
     this.onClose();
     this.authService.logout();
   }
+
   ngOnInit(): void {
     this.authService.authChange.subscribe(authStatus => {
       this.isAuth = authStatus;
     });
   }
+
   ngOnDestroy(): void {
     this.authSubscription.unsubscribe();
   }

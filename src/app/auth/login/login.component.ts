@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loadingSubscriptions = this.uiService.loadingStateChanged.subscribe(
       isLoading => {
         this.isLoading = isLoading;
-        console.log(isLoading);
       }
     );
     this.loginForm = new FormGroup({

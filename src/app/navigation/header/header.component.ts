@@ -9,7 +9,7 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 	@Output() sidenavToggle = new EventEmitter<void>();
-	isAuth = false;
+	isAuth;
 	authSubscription: Subscription;
 
 	constructor(private authService: AuthService) {}
@@ -22,9 +22,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
+		console.log('isAuth', this.isAuth);
 		this.authSubscription = this.authService.authChange.subscribe((authStatus) => {
 			console.log('authstatus', authStatus);
-			this.isAuth = authStatus;
+			// this.isAuth = authStatus;
+			this.isAuth = true;
 		});
 	}
 

@@ -10,14 +10,13 @@ import { UIService } from '../../shared/ui.service';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  maxDate;
+  maxDate = new Date();
   isLoading = false;
   private loadingSubscriptions: Subscription;
 
   constructor(private authService: AuthService, private uiService: UIService) {}
 
   ngOnInit(): void {
-    this.maxDate = new Date();
     this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
     this.loadingSubscriptions = this.uiService.loadingStateChanged.subscribe(
       isLoading => {

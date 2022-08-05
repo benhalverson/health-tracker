@@ -108,6 +108,8 @@
             "tsConfig": [
               "tsconfig.app.json",
               "tsconfig.spec.json",
+              "cypress/tsconfig.json",
+              "cypress/tsconfig.json",
               "cypress/tsconfig.json"
             ],
             "exclude": [

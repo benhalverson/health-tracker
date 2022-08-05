@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { UIService } from '../../shared/ui.service';
@@ -10,7 +10,7 @@ import { UIService } from '../../shared/ui.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   isLoading = false;
   private loadingSubscriptions: Subscription;
 
@@ -27,11 +27,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.isLoading = isLoading;
       }
     );
-    this.loginForm = new FormGroup({
-      email: new FormControl('', {
+    this.loginForm = new UntypedFormGroup({
+      email: new UntypedFormControl('', {
         validators: [Validators.required, Validators.email]
       }),
-      password: new FormControl('', { validators: [Validators.required] })
+      password: new UntypedFormControl('', { validators: [Validators.required] })
     });
   }
 

@@ -26,38 +26,37 @@ import { environment } from '../environments/environment';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { UIService } from './shared/ui.service';
 @NgModule({
-  declarations: [
-    AppComponent,
-    SignupComponent,
-    LoginComponent,
-    TrainingComponent,
-    CurrentTrainingComponent,
-    NewTrainingComponent,
-    PastTrainingComponent,
-    WelcomeComponent,
-    HeaderComponent,
-    SidenavListComponent,
-    StopTrainingComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    FlexLayoutModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
-  ],
-  providers: [
-    AuthService,
-    TrainingService,
-    AngularFirestore,
-    AngularFireAuth,
-    UIService
-  ],
-  bootstrap: [AppComponent],
-  entryComponents: [StopTrainingComponent]
+    declarations: [
+        AppComponent,
+        SignupComponent,
+        LoginComponent,
+        TrainingComponent,
+        CurrentTrainingComponent,
+        NewTrainingComponent,
+        PastTrainingComponent,
+        WelcomeComponent,
+        HeaderComponent,
+        SidenavListComponent,
+        StopTrainingComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        FlexLayoutModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule
+    ],
+    providers: [
+        AuthService,
+        TrainingService,
+        AngularFirestore,
+        AngularFireAuth,
+        UIService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

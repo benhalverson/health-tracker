@@ -1,6 +1,4 @@
-describe('My First Test', () => {
-  it('Visits the initial project page', () => {
-    cy.visit('/');
-    cy.contains('Fitness Demo App');
-  });
+it('loads examples', () => {
+  cy.visit('/');
+  cy.contains('Replace me with something relevant');
 });

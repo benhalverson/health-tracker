@@ -108,6 +108,7 @@
             "tsConfig": [
               "tsconfig.app.json",
               "tsconfig.spec.json",
+              "cypress/tsconfig.json",
               "cypress/tsconfig.json"
             ],
             "exclude": [
@@ -116,7 +117,7 @@
           }
         },
         "e2e": {
-          "builder": "@cypress/schematic:cypress",
+          "builder": "@briebug/cypress-schematic:cypress",
           "options": {
             "devServerTarget": "health-tracker:serve",
             "watch": true,
@@ -133,7 +134,7 @@
           "options": {}
         },
         "cypress-run": {
-          "builder": "@cypress/schematic:cypress",
+          "builder": "@briebug/cypress-schematic:cypress",
           "options": {
             "devServerTarget": "health-tracker:serve"
           },
@@ -144,10 +145,16 @@
           }
         },
         "cypress-open": {
-          "builder": "@cypress/schematic:cypress",
+          "builder": "@briebug/cypress-schematic:cypress",
           "options": {
+            "devServerTarget": "health-tracker:serve",
             "watch": true,
             "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "health-tracker:serve:production"
+            }
           }
         }
       }
